@@ -34,7 +34,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
@@ -49,7 +48,4 @@
     "url": "https://github.com/AlexanderShirokovExceedTeam/hospital-front/issues"
   },
   "homepage": "https://github.com/AlexanderShirokovExceedTeam/hospital-front#readme"
-=======
-  }
->>>>>>> 0930e28efc86b96836c5c6f196191be8f6d182fb
 }
