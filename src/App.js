@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import SignUp from './components/registration-page';
 import HospitalLogo from './components/images/hospital-logo';
 import Header from './components/header';
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 const App = () => {
   return (
@@ -24,7 +24,6 @@ const App = () => {
         </Route>
         <Redirect from='/' to='/registration'/>
       </Switch>
-
     </Container>
   );
 }
