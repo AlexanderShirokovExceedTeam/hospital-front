@@ -49,22 +49,25 @@ const SignUp = () => {
   }
   
   const clickRegHandler = (e) => {
+    e.preventDefault();
     if (regLogin.length < 6 || regPassword.length < 6) {
       alert('Login or password is not entered, or their length less than 6 symbols.');
     } else {
       if (regPassword !== regRepPassword) {
         alert('Invalid password')
       } else {
-        alert('Succesfull');
-        // axios.post('http://localhost:8000/login', {
-        //   username: regLogin,
-        //   password: regPassword
-        // }).then(res => {
-        //   localStorage.setItem('token', res.data.token);
-        //   history.push('/main');
-        // }).catch(err => {
-        //   alert('Authentification failed!');
-        // })
+        // alert('Succesfull');
+        axios.post('http://localhost:8080/userRegistration', {
+          username: regLogin,
+          password: regPassword
+        }).then(res => {
+          localStorage.setItem('token', res.data.token);
+          history.push('/');
+          // history.push('/main');
+        }).catch(err => {
+          console.log('Achtung!', err);
+          alert('Authentification failed!');
+        })
       }
     }
   }

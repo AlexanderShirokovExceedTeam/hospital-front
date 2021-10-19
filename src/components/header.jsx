@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Container } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+// import { Container } from '@material-ui/core';
 import PatchLogo from './images/patch-logo';
 import './headerStyles.css'
 
