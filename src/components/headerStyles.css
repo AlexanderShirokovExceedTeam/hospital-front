@@ -1,0 +1,18 @@
+.header-page {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0; */
+  /* max-width: 100%; */
+}
+
+.header-text {
+  width: 75%;
+  margin-right: 10%;
+}
+
+.pLogo {
+  width: 10%;
+}

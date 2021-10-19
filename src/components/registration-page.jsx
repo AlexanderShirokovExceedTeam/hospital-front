@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +9,6 @@ import Container from '@material-ui/core/Container';
 import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -72,73 +70,70 @@ const SignUp = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Registration
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="fname"
-                name="logIn"
-                variant="outlined"
-                required
-                fullWidth
-                id="logIn"
-                label="Log in"
-                onChange={(e) => loginHandler(e)}
-                // autoFocus
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                onChange={(e) => passwordHandler(e)}
-                // autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="repeat password"
-                label="Repeat password"
-                type="password"
-                id="Repeat password"
-                onChange={(e) => rPasswordHandler(e)}
-                // autoComplete="current-password"
-              />
-            </Grid>
+    <Container className='signup-block' component='div' maxWidth='xs'>
+      <Typography align='center' component="h1" variant="h5">
+        Registration
+      </Typography>
+      <form className={classes.form} noValidate>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              autoComplete="fname"
+              name="logIn"
+              variant="outlined"
+              required
+              fullWidth
+              id="logIn"
+              label="Log in"
+              onChange={(e) => loginHandler(e)}
+              // autoFocus
+            />
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e) => clickRegHandler(e)}
-          >
-            Register
-          </Button>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Authorization
-              </Link>
-            </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={(e) => passwordHandler(e)}
+              // autoComplete="current-password"
+            />
           </Grid>
-        </form>
-      </Box>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="repeat password"
+              label="Repeat password"
+              type="password"
+              id="Repeat password"
+              onChange={(e) => rPasswordHandler(e)}
+              // autoComplete="current-password"
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={(e) => clickRegHandler(e)}
+        >
+          Register
+        </Button>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Link href="#" variant="body2">
+              Authorization
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
 }

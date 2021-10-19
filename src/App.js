@@ -1,17 +1,18 @@
 import './App.css';
+import { Container } from '@material-ui/core';
 import SignUp from './components/registration-page';
-// import { SvgIcon } from '@material-ui/core';
 import HospitalLogo from './components/images/hospital-logo';
-import { Box } from '@material-ui/core';
+import Header from './components/header';
 
-function App() {
+const App = () => {
   return (
-    <Box className="App">
-      {/* <SvgIcon>
-      </SvgIcon> */}
-      <HospitalLogo />
-      <SignUp />
-    </Box>
+    <Container className='App' maxWidth='100%'>
+      <Header headerText={'Register in the system'}/>
+      <Container className='start-page'>
+        <HospitalLogo />
+        <SignUp />
+      </Container>
+    </Container>
   );
 }
 
