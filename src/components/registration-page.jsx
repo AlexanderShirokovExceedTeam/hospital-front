@@ -48,8 +48,7 @@ const SignUp = () => {
       return snackMessage('Passwords does not match.')
     }
     
-    setSnackmessage('User is created.');
-    setSnackbarOpen(true);
+    snackMessage('User is created.');
     axios.post('http://localhost:8080/userRegistration', {
       username: regLogin,
       password: regPassword

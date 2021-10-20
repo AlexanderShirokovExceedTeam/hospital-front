@@ -38,8 +38,8 @@ const LogIn = () => {
     if (regLogin.length < 6 || regPassword.length < 6 || !/\d/.test(regPassword) || !/[a-zA-Z]/.test(regPassword)) {
       return snackMessage('Login or password is not entered, or they invalid.')
     }
-
-    alert('Succesfull');
+    
+    snackMessage('Authorization was successful.');
     axios.post('http://localhost:8080/userAuthentification', {
       username: regLogin,
       password: regPassword
