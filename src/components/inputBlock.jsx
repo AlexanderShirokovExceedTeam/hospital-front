@@ -11,27 +11,91 @@ import {
 } from '@material-ui/core';
 import './inputBlockStyles.scss'
 
-const InputBlock = ({ headerText }) => {
+const InputBlock = () => {
+
+  const inputNameHandler = (e) => {
+
+  }
+
+  const inputDoctorHandler = (e) => {
+    
+  }
+
+  const inputDateHandler = (e) => {
+    
+  }
+
+  const inputProblemHandler = (e) => {
+    
+  }
 
   return (
     <Container className="input-block">
-      <Container className='input-name'>
-        <Typography className='text'>
-          {headerText}
-        </Typography>
-      </Container>
+      <form className="input-form">        
+        <Grid className='input-name'>
+          {/* <Typography className='text'>
+            Name
+          </Typography> */}
+          <TextField
+            name="inputName"
+            variant="outlined"
+            required
+            fullWidth
+            id="inputName"
+            label="Name"
+            type="text"
+            onChange={(e) => inputNameHandler(e)}
+          />
+        </Grid>
 
-      <Container className='input-doctor'>
+        <Grid className='input-doctor'>
+          {/* <Typography className='text'>
+            Doctor
+          </Typography> */}
+          <TextField
+            name="inputDoctor"
+            variant="outlined"
+            required
+            fullWidth
+            id="inputDoctor"
+            label="Doctor"
+            type="text"
+            onChange={(e) => inputDoctorHandler(e)}
+          />
+        </Grid>
 
-      </Container>
-
-      <Container className='input-date'>
-
-      </Container>
-
-      <Container className='input-problem'>
-
-      </Container>
+        <Grid className='input-date'>
+          {/* <Typography className='text'>
+            Date
+          </Typography> */}
+          <TextField
+            name="inputDate"
+            variant="outlined"
+            required
+            fullWidth
+            id="inputDate"
+            label="Date"
+            type="date"
+            onChange={(e) => inputDateHandler(e)}
+          />
+        </Grid>
+        
+        <Grid className='input-problem'>
+          {/* <Typography className='text'>
+            Problem
+          </Typography> */}
+          <TextField
+            name="inputProblem"
+            variant="outlined"
+            required
+            fullWidth
+            id="inputProblem"
+            label="Problem"
+            type="text"
+            onChange={(e) => inputProblemHandler(e)}
+          />
+        </Grid>
+      </form>
     </Container>
   )
 }

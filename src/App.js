@@ -5,6 +5,7 @@ import LogIn from './components/authorization-page';
 import HospitalLogo from './components/images/hospital-logo';
 import Header from './components/header';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import InputBlock from './components/inputBlock';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         </Route>
         <Route path='/main'>
           <Header headerText={'Visits'}/>
+          <InputBlock />
         </Route>
         <Redirect from='/' to='/registration'/>
       </Switch>

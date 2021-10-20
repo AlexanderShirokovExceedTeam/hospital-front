@@ -4,6 +4,12 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  /* margin: 0; */
-  /* max-width: 100%; */
+  padding-top: 2%;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  // height: 20%;
+  // margin: 0;
+}
+.input-block.MuiContainer-root {
+  max-width: 100%;
+  // width: 100%;
 }
