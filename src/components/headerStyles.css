@@ -1,0 +1,25 @@
+.header-page {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0; */
+  /* max-width: 100%; */
+}
+
+.header-page.MuiContainer-root {
+  display: flex;
+  margin: 0;
+  max-width: 100%;
+}
+
+.header-text.MuiContainer-root {
+  display: flex;
+  width: 75%;
+  margin-right: 15%;
+}
+
+.pLogo {
+  width: 10%;
+}
