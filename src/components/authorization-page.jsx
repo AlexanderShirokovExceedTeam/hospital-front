@@ -12,12 +12,11 @@ import {
 } from '@material-ui/core';
 import './form-page.scss';
 
-const SignUp = () => {
+const LogIn = () => {
   const history = useHistory();
-  
+
   const [regLogin, setRegLogin] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  const [regRepPassword, setRegRepPassword] = useState('');
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const [snackmessage, setSnackmessage ] = useState('');
   
@@ -28,28 +27,20 @@ const SignUp = () => {
   const passwordHandler = (e) => {
     setRegPassword(e.target.value);
   }
-  
-  const rPasswordHandler = (e) => {
-    setRegRepPassword(e.target.value);
-  }
 
   const snackMessage = (message) => {
     setSnackmessage(`${message}`);
     setSnackbarOpen(true);
   }
-  
-  const clickRegHandler = (e) => {
+
+  const clickAuthHandler = (e) => {
     e.preventDefault();
     if (regLogin.length < 6 || regPassword.length < 6 || !/\d/.test(regPassword) || !/[a-zA-Z]/.test(regPassword)) {
       return snackMessage('Login or password is not entered, or they invalid.')
     }
-
-    if (regPassword !== regRepPassword) {
-      return snackMessage('Passwords does not match.')
-    }
     
-    snackMessage('User is created.');
-    axios.post('http://localhost:8080/userRegistration', {
+    snackMessage('Authorization was successful.');
+    axios.post('http://localhost:8080/userAuthentification', {
       username: regLogin,
       password: regPassword
     }).then(res => {
@@ -57,15 +48,15 @@ const SignUp = () => {
       history.push('/main');
     }).catch(err => {
       snackMessage('Authentification failed.');
-    });
+    }) 
   }
 
   return (
-    <Container className='signup-block' component='div' maxWidth='xs'>
+    <Container className='signup-block auth' component='div' maxWidth='xs'>
       <Typography align='center' component="h1" variant="h5">
-        Registration
+        Authorization
       </Typography>
-      <form className='signup-form' noValidate>
+      <form className='login-form' noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -91,28 +82,16 @@ const SignUp = () => {
               onChange={(e) => passwordHandler(e)}
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="repeat password"
-              label="Repeat password"
-              type="password"
-              id="Repeat password"
-              onChange={(e) => rPasswordHandler(e)}
-            />
-          </Grid>
         </Grid>
         <Button
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
-          className="signup-button"
-          onClick={(e) => clickRegHandler(e)}
+          className="login-button"
+          onClick={(e) => clickAuthHandler(e)}
         >
-          Register
+          Authorization
         </Button>
         <Snackbar
           anchorOrigin={{
@@ -126,14 +105,14 @@ const SignUp = () => {
         />
         <Grid container justifyContent="center">
           <Grid item>
-            <Link href="/login" variant="body2">
-              Authorization
+            <Link href="/registration" variant="body2">
+              Register
             </Link>
           </Grid>
         </Grid>
       </form>
     </Container>
-  );
+  )
 }
 
-export default SignUp
+export default LogIn;
