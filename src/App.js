@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { Container } from '@material-ui/core';
 import SignUp from './components/registration-page';
 import LogIn from './components/authorization-page';

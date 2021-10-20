@@ -7,33 +7,19 @@ import {
   Link,
   Grid,
   Typography,
-  makeStyles,
-  Container
+  Container,
+  Snackbar
 } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  }
-}));
+import './form-page.scss';
 
 const SignUp = () => {
-  const classes = useStyles();
   const history = useHistory();
   
   const [regLogin, setRegLogin] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  const [regRepPassword, setRegRepPassword] = useState('');  
+  const [regRepPassword, setRegRepPassword] = useState('');
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackmessage, setSnackmessage ] = useState('');
   
   const loginHandler = (e) => {
     setRegLogin(e.target.value);
@@ -46,18 +32,24 @@ const SignUp = () => {
   const rPasswordHandler = (e) => {
     setRegRepPassword(e.target.value);
   }
+
+  const snackMessage = (message) => {
+    setSnackmessage(`${message}`);
+    setSnackbarOpen(true);
+  }
   
   const clickRegHandler = (e) => {
     e.preventDefault();
     if (regLogin.length < 6 || regPassword.length < 6 || !/\d/.test(regPassword) || !/[a-zA-Z]/.test(regPassword)) {
-      return alert('Login or password is not entered, or they invalid.');
+      return snackMessage('Login or password is not entered, or they invalid.')
     }
 
     if (regPassword !== regRepPassword) {
-      return alert('Invalid password')
+      return snackMessage('Passwords does not match.')
     }
-
-    alert('Succesfull');
+    
+    setSnackmessage('User is created.');
+    setSnackbarOpen(true);
     axios.post('http://localhost:8080/userRegistration', {
       username: regLogin,
       password: regPassword
@@ -65,8 +57,8 @@ const SignUp = () => {
       localStorage.setItem('token', res.data.token);
       history.push('/main');
     }).catch(err => {
-      alert('Authentification failed!');
-    })
+      snackMessage('Authentification failed.');
+    });
   }
 
   return (
@@ -74,7 +66,7 @@ const SignUp = () => {
       <Typography align='center' component="h1" variant="h5">
         Registration
       </Typography>
-      <form className={classes.form} noValidate>
+      <form className='signup-form' noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -118,11 +110,21 @@ const SignUp = () => {
           fullWidth
           variant="contained"
           color="primary"
-          className={classes.submit}
+          className="signup-button"
           onClick={(e) => clickRegHandler(e)}
         >
           Register
         </Button>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+          open={isSnackbarOpen}
+          autoHideDuration={2000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackmessage}
+        />
         <Grid container justifyContent="center">
           <Grid item>
             <Link href="/login" variant="body2">

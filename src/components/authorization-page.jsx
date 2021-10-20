@@ -7,32 +7,18 @@ import {
   Link,
   Grid,
   Typography,
-  makeStyles,
-  Container
+  Container,
+  Snackbar
 } from '@material-ui/core';
+import './form-page.scss';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  }
-}));
-
-const LogIn = () => {  
-  const classes = useStyles();
+const LogIn = () => {
   const history = useHistory();
 
   const [regLogin, setRegLogin] = useState('');
   const [regPassword, setRegPassword] = useState('');
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackmessage, setSnackmessage ] = useState('');
   
   const loginHandler = (e) => {
     setRegLogin(e.target.value);
@@ -42,10 +28,15 @@ const LogIn = () => {
     setRegPassword(e.target.value);
   }
 
+  const snackMessage = (message) => {
+    setSnackmessage(`${message}`);
+    setSnackbarOpen(true);
+  }
+
   const clickAuthHandler = (e) => {
     e.preventDefault();
     if (regLogin.length < 6 || regPassword.length < 6 || !/\d/.test(regPassword) || !/[a-zA-Z]/.test(regPassword)) {
-      return alert('Login or password is not entered, or they invalid.');
+      return snackMessage('Login or password is not entered, or they invalid.')
     }
 
     alert('Succesfull');
@@ -56,7 +47,7 @@ const LogIn = () => {
       localStorage.setItem('token', res.data.token);
       history.push('/main');
     }).catch(err => {
-      alert('Authentification failed!');
+      snackMessage('Authentification failed.');
     }) 
   }
 
@@ -65,7 +56,7 @@ const LogIn = () => {
       <Typography align='center' component="h1" variant="h5">
         Authorization
       </Typography>
-      <form className={classes.form} noValidate>
+      <form className='login-form' noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -97,14 +88,24 @@ const LogIn = () => {
           fullWidth
           variant="contained"
           color="primary"
-          className={classes.submit}
+          className="login-button"
           onClick={(e) => clickAuthHandler(e)}
         >
           Authorization
         </Button>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+          open={isSnackbarOpen}
+          autoHideDuration={2000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackmessage}
+        />
         <Grid container justifyContent="center">
           <Grid item>
-            <Link href="/" variant="body2">              
+            <Link href="/registration" variant="body2">
               Register
             </Link>
           </Grid>
