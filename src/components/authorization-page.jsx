@@ -27,13 +27,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignUp = () => {
+const LogIn = () => {  
   const classes = useStyles();
   const history = useHistory();
-  
+
   const [regLogin, setRegLogin] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  const [regRepPassword, setRegRepPassword] = useState('');  
   
   const loginHandler = (e) => {
     setRegLogin(e.target.value);
@@ -42,23 +41,15 @@ const SignUp = () => {
   const passwordHandler = (e) => {
     setRegPassword(e.target.value);
   }
-  
-  const rPasswordHandler = (e) => {
-    setRegRepPassword(e.target.value);
-  }
-  
-  const clickRegHandler = (e) => {
+
+  const clickAuthHandler = (e) => {
     e.preventDefault();
     if (regLogin.length < 6 || regPassword.length < 6 || !/\d/.test(regPassword) || !/[a-zA-Z]/.test(regPassword)) {
       return alert('Login or password is not entered, or they invalid.');
     }
 
-    if (regPassword !== regRepPassword) {
-      return alert('Invalid password')
-    }
-
     alert('Succesfull');
-    axios.post('http://localhost:8080/userRegistration', {
+    axios.post('http://localhost:8080/userAuthentification', {
       username: regLogin,
       password: regPassword
     }).then(res => {
@@ -66,13 +57,13 @@ const SignUp = () => {
       history.push('/main');
     }).catch(err => {
       alert('Authentification failed!');
-    })
+    }) 
   }
 
   return (
-    <Container className='signup-block' component='div' maxWidth='xs'>
+    <Container className='signup-block auth' component='div' maxWidth='xs'>
       <Typography align='center' component="h1" variant="h5">
-        Registration
+        Authorization
       </Typography>
       <form className={classes.form} noValidate>
         <Grid container spacing={2}>
@@ -100,18 +91,6 @@ const SignUp = () => {
               onChange={(e) => passwordHandler(e)}
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="repeat password"
-              label="Repeat password"
-              type="password"
-              id="Repeat password"
-              onChange={(e) => rPasswordHandler(e)}
-            />
-          </Grid>
         </Grid>
         <Button
           type="submit"
@@ -119,20 +98,20 @@ const SignUp = () => {
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={(e) => clickRegHandler(e)}
+          onClick={(e) => clickAuthHandler(e)}
         >
-          Register
+          Authorization
         </Button>
         <Grid container justifyContent="center">
           <Grid item>
-            <Link href="/login" variant="body2">
-              Authorization
+            <Link href="/" variant="body2">              
+              Register
             </Link>
           </Grid>
         </Grid>
       </form>
     </Container>
-  );
+  )
 }
 
-export default SignUp
+export default LogIn;
