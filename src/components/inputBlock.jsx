@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import {
@@ -13,7 +13,13 @@ import {
 import './inputBlockStyles.scss'
 
 const InputBlock = () => {
-  const [doctorSelect, setDoctorSelect] = useState();
+  const srcToken = localStorage.getItem('token');
+  const [allVisits, setAllVisits] = useState([]);
+  const [inputName, setInputName] = useState('');
+  const [inputDoctor, setInputDoctor] = useState('');
+  const [inputDate, setInputDate] = useState('');
+  const [inputProblem, setInputProblem] = useState('');
+  const history = useHistory();
 
   const doctors = [
     {
@@ -35,19 +41,66 @@ const InputBlock = () => {
   ];
 
   const inputNameHandler = (e) => {
-
+    setInputName(e.target.value);
   }
-
+  
   const inputDoctorHandler = (e) => {
-    
+    setInputDoctor(e.target.value);
   }
-
+  
   const inputDateHandler = (e) => {
-    
+    setInputDate(e.target.value);
+  }
+  
+  const inputProblemHandler = (e) => {
+    setInputProblem(e.target.value);
   }
 
-  const inputProblemHandler = (e) => {
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   axios.get('http://localhost:8080/allVisits', {
+  //     headers : {
+  //       token: `${token}`,
+  //       'Access-Control-Allow-Origin': '*',
+  //       'Content-Type': 'application/json;charset=utf-8'
+  //     }
+  //   }).then(res => {
+  //     setAllVisits(res.data.data);
+  //   });
+  // }, [setAllVisits]);
+  
+  const clickAddHandler = (e) => {
+    // e.preventDefault();
+    // console.log(inputName);
+    // console.log(inputDoctor);
+    // console.log(inputDate);
+    // console.log(inputProblem);
+    const token = localStorage.getItem('token');
     
+    axios.post('http://localhost:8080/createVisit', {
+      patient:  inputName,
+      doctor:   inputDoctor,
+      date:     inputDate,
+      problem:  inputProblem,
+      // userId:   localStorage.getItem('token')
+    }, {headers : {
+      token: `${token}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json;charset=utf-8'
+    }}).then(res => {
+      if (res) {
+        setInputName('');
+        setInputDoctor('');
+        setInputDate('');
+        setInputProblem('');
+        setAllVisits(res.data.data);
+      }
+    }).catch(err => {
+      if (err.response.status === 403) {
+        localStorage.removeItem('token');
+        history.push('/login');
+      }
+    });
   }
 
   return (
@@ -71,7 +124,6 @@ const InputBlock = () => {
               onChange={(e) => inputNameHandler(e)}
             />
           </Grid>
-
           <Grid
             className='input-doctor'
             item
@@ -84,12 +136,11 @@ const InputBlock = () => {
               required
               fullWidth
               id="inputDoctor"
-              value={doctorSelect}
-              // id="outlined-select-currency-native"
+              value={inputDoctor}
               select
               label="Doctor"
               type="text"
-              onChange={(e) => setDoctorSelect(e.target.value)}
+              onChange={(e) => inputDoctorHandler(e)}
               SelectProps={{
                 native: true,
               }}
@@ -103,7 +154,6 @@ const InputBlock = () => {
               }
             </TextField>
           </Grid>
-
           <Grid
             className='input-date'
             item
@@ -116,13 +166,12 @@ const InputBlock = () => {
               id="inputDate"
               type="date"
               variant="outlined"
-              value={''}
+              value={inputDate}
               autoComplete='off'
               required
               fullWidth
             />
-          </Grid>
-          
+          </Grid>          
           <Grid
             className='input-problem'
             item
@@ -151,6 +200,8 @@ const InputBlock = () => {
               fullWidth
               variant="contained"
               color="primary"
+              onClick={(e) => clickAddHandler(e)}              
+              disabled={!inputName || !inputDoctor || !inputDate || !inputProblem}
             >
               Add
             </Button>

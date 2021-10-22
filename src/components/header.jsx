@@ -18,7 +18,6 @@ const Header = ({ headerText, exitButton }) => {
   return (
     <Container className="header-page">
       <PatchLogo/>
-      {/* <Container className={`header-text ${exitButton ? 'button' : 'without-button'}`}></Container> */}
       <Container className='header-text'>
         <Typography className='text'>
           {headerText}

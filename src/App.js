@@ -7,8 +7,12 @@ import Header from './components/header';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import InputBlock from './components/inputBlock';
 import ContentBlock from './components/contentBlock';
+import { useState } from 'react';
 
 const App = () => {
+
+  const [allVisits, setAllVisits] = useState([]);
+
   return (
     <Container className='App' maxWidth='100%'>
       <Switch>
@@ -38,7 +42,10 @@ const App = () => {
             exitButton={true}
           />
           <InputBlock />
-          <ContentBlock />
+          <ContentBlock
+            allVisits={allVisits}
+            setAllVisits={setAllVisits}
+          />
         </Route>
         <Redirect from='/' to='/registration'/>
       </Switch>
