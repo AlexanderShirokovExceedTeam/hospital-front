@@ -1,6 +1,5 @@
 import './contentBlock.scss'
 import { useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import {
   Table,
@@ -9,8 +8,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  Container
 } from '@material-ui/core';
+import { Edit, Delete } from '@material-ui/icons';
 
 const ContentBlock = ({ allVisits, setAllVisits }) => {
   
@@ -26,9 +27,13 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
       setAllVisits(res.data.data);
     });
   }, [setAllVisits]);
-  
-  const tempVisitsCollection = (srcObj) => {
-    const [ patient, doctor, date, problem, userId ] = srcObj;
+
+  const handleEditVisit = () => {
+
+  }
+
+  const handleDeleteVisit = () => {
+    
   }
   
   return (
@@ -36,27 +41,39 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
         <TableRow>
-          <TableCell align="center">Patient</TableCell>
-          <TableCell align="center">Doctor</TableCell>
-          <TableCell align="center">Date</TableCell>
-          <TableCell align="center">Problem</TableCell>
-          <TableCell align="center">Button column</TableCell>
+          <TableCell align="center" className="table-header">Patient</TableCell>
+          <TableCell align="center" className="table-header">Doctor</TableCell>
+          <TableCell align="center" className="table-header">Date</TableCell>
+          <TableCell align="center" className="table-header">Problem</TableCell>
+          <TableCell align="center" className="table-header">Button column</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {
-          allVisits.map((row) => (
+          allVisits.map((row, index) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="center">{row.patient}</TableCell>
-              <TableCell align="center">{row.doctor}</TableCell>
-              <TableCell align="center">{row.date}</TableCell>
-              <TableCell align="center">{row.problem}</TableCell>
-              <TableCell component="th" scope="row">
-                {row.name}
-            </TableCell>
+              <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
+              <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
+              <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
+              <TableCell align="center" className="visits-column">{row.problem}</TableCell>
+
+              <TableCell
+                component="th"
+                scope="row"
+                className="buttons-field"
+              >
+                <Container className="button-block">
+                  <Edit
+                    className="button-edit"
+                    onClick={() => handleEditVisit()}/>
+                  <Delete
+                    className="button-delete"
+                    onClick={() => handleDeleteVisit()}/>
+                </Container>
+              </TableCell>
             </TableRow>
           ))
         }

@@ -1,0 +1,34 @@
+.MuiSvgIcon-root.button-edit,
+.MuiSvgIcon-root.button-delete {
+  margin: 0 5%;
+}
+
+.MuiTableCell-root.buttons-field {
+  text-align: center;
+  width: 10%;
+}
+
+.MuiTableCell-root.date-field,
+.MuiTableCell-root.doctor-field {
+  width: 10%;
+}
+
+.MuiTableCell-root.patient-field {
+  width: 20%;
+}
+
+.MuiTableCell-root.table-header {
+  font-size: 1rem;
+}
+
+.MuiTableCell-root.visits-column {
+  border-right: 1px solid darkgrey;
+}
+
+.MuiContainer-root.button-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
