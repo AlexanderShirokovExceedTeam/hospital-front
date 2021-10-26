@@ -37,11 +37,11 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
   }, [setAllVisits]);
 
   const handleEditVisit = () => {
-
+    //  use Dialog for modal
   }
 
   const handleDeleteVisit = () => {
-    
+    //  use Dialog for modal
   }
   
   return (
