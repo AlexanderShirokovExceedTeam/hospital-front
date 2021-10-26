@@ -14,6 +14,14 @@ import {
 import { Edit, Delete } from '@material-ui/icons';
 
 const ContentBlock = ({ allVisits, setAllVisits }) => {
+
+  const tableHeaders = [
+    'Patient',
+    'Doctor',
+    'Date',
+    'Problem',
+    'Button column'
+  ]
   
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -41,16 +49,16 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
         <TableRow>
-          <TableCell align="center" className="table-header">Patient</TableCell>
-          <TableCell align="center" className="table-header">Doctor</TableCell>
-          <TableCell align="center" className="table-header">Date</TableCell>
-          <TableCell align="center" className="table-header">Problem</TableCell>
-          <TableCell align="center" className="table-header">Button column</TableCell>
+          {
+            tableHeaders.map((item) => (
+              <TableCell align="center" className="table-header">{item}</TableCell>
+            ))
+          }
         </TableRow>
       </TableHead>
       <TableBody>
         {
-          allVisits.map((row, index) => (
+          allVisits.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -59,7 +67,6 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
               <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
               <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
               <TableCell align="center" className="visits-column">{row.problem}</TableCell>
-
               <TableCell
                 component="th"
                 scope="row"

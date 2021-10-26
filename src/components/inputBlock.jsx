@@ -1,32 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import {
   Button,
   TextField,
-  Link,
-  Grid,
   Box,
-  Typography,
   Container,
-  Select,
-  Hidden
 } from '@material-ui/core';
-import './inputBlockStyles.scss'
+import './inputBlockStyles.scss';
 
-const InputBlock = () => {
-  const srcToken = localStorage.getItem('token');
-  const [allVisits, setAllVisits] = useState([]);
+const InputBlock = ({ setAllVisits }) => {
   const [inputName, setInputName] = useState('');
   const [inputDoctor, setInputDoctor] = useState('');
   const [inputDate, setInputDate] = useState('');
   const [inputProblem, setInputProblem] = useState('');
   const [isHidden, setIsHidden] = useState(false);
   const history = useHistory();
-  
-  // useEffect(() => {
-  //   console.log(window.innerWidth);
-  // });
 
   const doctors = [
     {
@@ -63,7 +52,7 @@ const InputBlock = () => {
     setInputProblem(e.target.value);
   }
   
-  const clickAddHandler = (e) => {
+  const clickAddHandler = () => {
     const token = localStorage.getItem('token');
     
     axios.post('http://localhost:8080/createVisit', {
@@ -91,12 +80,9 @@ const InputBlock = () => {
     });
   }
 
-  // const buttonHideHandler = () => {
-  //   console.log(isHidden);
-  // }
+  const inputButtonIsValid = !inputName || !inputDoctor || !inputDate || !inputProblem;
   
   return (
-    // on ipad hidden inputs  hidden ? 'hide' : ''
     <Container className="input-block">
       {
         ((isHidden && (window.innerWidth <= 768)) ||
@@ -174,8 +160,8 @@ const InputBlock = () => {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  onClick={(e) => clickAddHandler(e)}              
-                  disabled={!inputName || !inputDoctor || !inputDate || !inputProblem}
+                  onClick={() => clickAddHandler()}              
+                  disabled={inputButtonIsValid}
                 >
                   Add
                 </Button>
@@ -189,7 +175,6 @@ const InputBlock = () => {
           type="submit"
           variant="contained"
           color="primary"
-          className={!isHidden ? '' : 'hide-button'}
           onClick={() => setIsHidden(true)}
         >
           Fill inputs

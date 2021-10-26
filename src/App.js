@@ -41,7 +41,9 @@ const App = () => {
             headerText={'Visits'}
             exitButton={true}
           />
-          <InputBlock />
+          <InputBlock
+            setAllVisits={setAllVisits}
+          />
           <ContentBlock
             allVisits={allVisits}
             setAllVisits={setAllVisits}
