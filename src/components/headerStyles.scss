@@ -4,8 +4,10 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  /* margin: 0; */
-  /* max-width: 100%; */
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 20%;
+  // margin: 0;
+  // max-width: 100%;
 }
 
 .header-page.MuiContainer-root {
@@ -17,9 +19,21 @@
 .header-text.MuiContainer-root {
   display: flex;
   width: 75%;
-  margin-right: 15%;
+  // margin-right: 15%;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-text > .text {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 3rem;
 }
 
 .pLogo {
-  width: 10%;
+  width: 6%;
 }

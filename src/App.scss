@@ -7,23 +7,6 @@ html {
   background-color: #C5E9FF;
 }
 
-.header-page {
-  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 20%;
-}
-
-.header-text {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-text > .text {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 3rem;
-}
-
 #root > .App {
   padding: 0;
   margin: 0;

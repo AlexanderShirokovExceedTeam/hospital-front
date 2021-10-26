@@ -60,7 +60,6 @@ const LogIn = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              autoComplete="fname"
               name="logIn"
               variant="outlined"
               required
