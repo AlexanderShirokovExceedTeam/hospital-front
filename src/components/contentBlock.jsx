@@ -58,9 +58,9 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
       </TableHead>
       <TableBody>
         {
-          allVisits.map((row) => (
+          allVisits.map((row, index) => (
             <TableRow
-              key={row._id}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
