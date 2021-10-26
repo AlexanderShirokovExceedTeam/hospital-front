@@ -63,7 +63,6 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
               key={row._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              {console.log('row.name', row._id)}
               <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
               <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
               <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
