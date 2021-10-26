@@ -13,6 +13,30 @@ const App = () => {
 
   const [allVisits, setAllVisits] = useState([]);
 
+  const [inputName, setInputName] = useState('');
+  const [inputDoctor, setInputDoctor] = useState('');
+  const [inputDate, setInputDate] = useState('');
+  const [inputProblem, setInputProblem] = useState('');
+
+  const doctors = [
+    {
+      value: '',
+    },
+    {
+      value: 'Jonathan Sins',
+    },
+    {
+      value: 'Gregory House',
+
+    },
+    {
+      value: 'Emmett Brown',
+    },
+    {
+      value: 'Rick Sanchez',
+    },
+  ];
+
   return (
     <Container className='App' maxWidth='100%'>
       <Switch>
@@ -43,10 +67,20 @@ const App = () => {
           />
           <InputBlock
             setAllVisits={setAllVisits}
+            doctors={doctors}
+            inputName={inputName}
+            setInputName={setInputName}
+            inputDoctor={inputDoctor}
+            setInputDoctor={setInputDoctor}
+            inputDate={inputDate}
+            setInputDate={setInputDate}
+            inputProblem={inputProblem}
+            setInputProblem={setInputProblem}
           />
           <ContentBlock
             allVisits={allVisits}
             setAllVisits={setAllVisits}
+            doctors={doctors}
           />
         </Route>
         <Redirect from='/' to='/registration'/>

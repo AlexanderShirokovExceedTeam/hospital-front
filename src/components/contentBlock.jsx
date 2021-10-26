@@ -12,8 +12,16 @@ import {
   Container
 } from '@material-ui/core';
 import { Edit, Delete } from '@material-ui/icons';
+import { useState } from 'react';
+import EditVisit from './modalEdit';
+import DeleteVisit from './modalDelete';
 
-const ContentBlock = ({ allVisits, setAllVisits }) => {
+const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
+
+  const[openEdit, setOpenEdit] = useState(false);
+  const[openDelete, setOpenDelete] = useState(false);
+  const[unuqieID, setUniqueID] = useState(null);
+  const[editedVisit, setEditedVisit] = useState({});
 
   const tableHeaders = [
     'Patient',
@@ -36,14 +44,16 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
     });
   }, [setAllVisits]);
 
-  const handleEditVisit = () => {
-    //  use Dialog for modal
+  const handleEditVisit = (visit) => {
+    setEditedVisit(visit);
+    setOpenEdit(true);
   }
 
-  const handleDeleteVisit = () => {
-    //  use Dialog for modal
+  const handleDeleteVisit = (id) => {
+    setUniqueID(id);
+    setOpenDelete(true);
   }
-  
+
   return (
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -75,10 +85,32 @@ const ContentBlock = ({ allVisits, setAllVisits }) => {
                 <Container className="button-block">
                   <Edit
                     className="button-edit"
-                    onClick={() => handleEditVisit()}/>
+                    onClick={() => handleEditVisit(row)}
+                  />
+                  <EditVisit
+                    className="modal-edit"
+                    editedVisit={editedVisit}
+                    unuqieID={unuqieID}
+                    openEdit={openEdit}
+                    setOpenEdit={setOpenEdit}
+                    setAllVisits={setAllVisits}
+                    doctors={doctors}
+                  />
+
+                  {/* ************************************** */}
+
                   <Delete
                     className="button-delete"
-                    onClick={() => handleDeleteVisit()}/>
+                    onClick={() => handleDeleteVisit(row._id)}
+                  />
+                  <DeleteVisit
+                    className="modal-delete"
+                    unuqieID={unuqieID}
+                    openDelete={openDelete}
+                    setOpenDelete={setOpenDelete}
+                    setAllVisits={setAllVisits}
+                  />
+
                 </Container>
               </TableCell>
             </TableRow>
