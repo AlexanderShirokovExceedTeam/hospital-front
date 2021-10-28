@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem }) => {
 
-  const { _id, patient, doctor, date, problem, userId } = editedVisit;
+  const { _id, patient, doctor, date, problem } = editedVisit;
 
   const [editPatient, setEditPatient] = useState(patient);
   const [editDoctor, setEditDoctor] = useState(doctor);
@@ -24,7 +24,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
   const handleEditAccept = () => {
     const token = localStorage.getItem('token');
     axios.patch('http://localhost:8080/updateVisit', {
-      _id: _id,
+      _id,
       patient: editPatient,
       doctor: editDoctor,
       date: editDate,
@@ -60,6 +60,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
   return (
     <Dialog
       aria-labelledby="dialog-edit"
+      className="dialog-edit"
       open={openEdit}
       onClose={() => setOpenEdit(false)}
     >
@@ -74,7 +75,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
           required
           fullWidth
           id="inputName"
-          value={patient}
+          value={editPatient}
           type="text"
           onChange={(e) => inputNameHandler(e)}
           margin="dense"
@@ -87,7 +88,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
           required
           fullWidth
           id="inputDoctor"
-          value={doctor}
+          value={editDoctor}
           select
           type="text"
           onChange={(e) => inputDoctorHandler(e)}
@@ -112,7 +113,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
           id="inputDate"
           type="date"
           variant="outlined"
-          value={date}
+          value={editDate.substring(0, 10)}
           autoComplete='off'
           required
           fullWidth
@@ -126,7 +127,7 @@ const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, 
           required
           fullWidth
           id="inputProblem"
-          value={problem}
+          value={editProblem}
           type="text"
           onChange={(e) => inputProblemHandler(e)}
           margin="dense"

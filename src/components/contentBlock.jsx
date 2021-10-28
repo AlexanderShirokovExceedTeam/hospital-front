@@ -14,7 +14,6 @@ import {
 import { Edit, Delete } from '@material-ui/icons';
 import { useState } from 'react';
 import EditVisit from './modalEdit';
-import DeleteVisit from './modalDelete';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
 
@@ -44,8 +43,8 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
     });
   }, [setAllVisits]);
 
-  const handleEditVisit = (visit) => {
-    setEditedVisit(visit);
+  const handleEditVisit = (index) => {
+    setEditedVisit(allVisits[index]);
     setOpenEdit(true);
   }
 
@@ -55,70 +54,60 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
   }
 
   return (
-    <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-      <TableHead>
-        <TableRow>
+    <>
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {
+              tableHeaders.map((item) => (
+                <TableCell align="center" className="table-header">{item}</TableCell>
+              ))
+            }
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {
-            tableHeaders.map((item) => (
-              <TableCell align="center" className="table-header">{item}</TableCell>
+            allVisits.map((row, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
+                <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
+                <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
+                <TableCell align="center" className="visits-column">{row.problem}</TableCell>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className="buttons-field"
+                >
+                  <Container className="button-block">
+                    <Edit
+                      className="button-edit"
+                      onClick={() => handleEditVisit(index)}
+                    />
+                    <Delete
+                      className="button-delete"
+                      onClick={() => handleDeleteVisit(row._id)}
+                    />
+                  </Container>
+                </TableCell>
+              </TableRow>
             ))
           }
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {
-          allVisits.map((row, index) => (
-            <TableRow
-              key={index}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
-              <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
-              <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
-              <TableCell align="center" className="visits-column">{row.problem}</TableCell>
-              <TableCell
-                component="th"
-                scope="row"
-                className="buttons-field"
-              >
-                <Container className="button-block">
-                  <Edit
-                    className="button-edit"
-                    onClick={() => handleEditVisit(row)}
-                  />
-                  <EditVisit
-                    className="modal-edit"
-                    editedVisit={editedVisit}
-                    unuqieID={unuqieID}
-                    openEdit={openEdit}
-                    setOpenEdit={setOpenEdit}
-                    setAllVisits={setAllVisits}
-                    doctors={doctors}
-                  />
-
-                  {/* ************************************** */}
-
-                  <Delete
-                    className="button-delete"
-                    onClick={() => handleDeleteVisit(row._id)}
-                  />
-                  <DeleteVisit
-                    className="modal-delete"
-                    unuqieID={unuqieID}
-                    openDelete={openDelete}
-                    setOpenDelete={setOpenDelete}
-                    setAllVisits={setAllVisits}
-                  />
-
-                </Container>
-              </TableCell>
-            </TableRow>
-          ))
-        }
-      </TableBody>
-    </Table>
-  </TableContainer>
+        </TableBody>
+      </Table>
+    </TableContainer>
+    {openEdit && <EditVisit
+      className="modal-edit"
+      editedVisit={editedVisit}
+      openEdit={openEdit}
+      setOpenEdit={setOpenEdit}
+      setAllVisits={setAllVisits}
+      doctors={doctors}
+    />}
+  </>
   )
 }
 
