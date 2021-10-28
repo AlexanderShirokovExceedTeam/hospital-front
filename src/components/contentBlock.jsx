@@ -14,6 +14,7 @@ import {
 import { Edit, Delete } from '@material-ui/icons';
 import { useState } from 'react';
 import EditVisit from './modalEdit';
+import DeleteVisit from './modalDelete';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
 
@@ -126,6 +127,13 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
       setOpenEdit={setOpenEdit}
       setAllVisits={setAllVisits}
       doctors={doctors}
+    />}
+    {openDelete && <DeleteVisit
+      className="modal-delete"
+      unuqieID={unuqieID}
+      openDelete={openDelete}
+      setOpenDelete={setOpenDelete}
+      setAllVisits={setAllVisits}
     />}
   </>
   )
