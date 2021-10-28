@@ -1,4 +1,3 @@
-import './contentBlock.scss'
 import { useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -15,8 +14,10 @@ import { Edit, Delete } from '@material-ui/icons';
 import { useState } from 'react';
 import EditVisit from './modalEdit';
 import DeleteVisit from './modalDelete';
+import './contentBlock.scss';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
+  const[sortedVisits, setSortedVisits] = useState(allVisits);
   const[openEdit, setOpenEdit] = useState(false);
   const[openDelete, setOpenDelete] = useState(false);
   const[unuqieID, setUniqueID] = useState(null);
@@ -40,14 +41,15 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
       }
     }).then(res => {
       setAllVisits(res.data.data);
+      setSortedVisits(res.data.data);
     });
   }, [setAllVisits]);
 
   const handleEditVisit = (index) => {
-    setEditedVisit(allVisits[index]);
+    setEditedVisit(sortedVisits[index]);
     setOpenEdit(true);
   }
-  
+
   const handleDeleteVisit = (id) => {
     setUniqueID(id);
     setOpenDelete(true);
@@ -68,7 +70,7 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
         </TableHead>
         <TableBody>
           {
-            allVisits.map((row, index) => (
+            sortedVisits.map((row, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
