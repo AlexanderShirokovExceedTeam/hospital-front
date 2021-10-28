@@ -12,7 +12,6 @@ import { useState } from 'react';
 const App = () => {
 
   const [allVisits, setAllVisits] = useState([]);
-
   const [inputName, setInputName] = useState('');
   const [inputDoctor, setInputDoctor] = useState('');
   const [inputDate, setInputDate] = useState('');

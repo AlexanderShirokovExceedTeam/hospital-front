@@ -17,7 +17,6 @@ import EditVisit from './modalEdit';
 import DeleteVisit from './modalDelete';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
-
   const[openEdit, setOpenEdit] = useState(false);
   const[openDelete, setOpenDelete] = useState(false);
   const[unuqieID, setUniqueID] = useState(null);
@@ -48,7 +47,7 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
     setEditedVisit(allVisits[index]);
     setOpenEdit(true);
   }
-
+  
   const handleDeleteVisit = (id) => {
     setUniqueID(id);
     setOpenDelete(true);

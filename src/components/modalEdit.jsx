@@ -1,4 +1,3 @@
-import '../components/modalEdit.scss';
 import {
   Dialog,
   DialogTitle,
@@ -10,12 +9,10 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import { useState } from 'react';
-
+import '../components/modalEdit.scss';
 
 const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem }) => {
-
   const { _id, patient, doctor, date, problem } = editedVisit;
-
   const [editPatient, setEditPatient] = useState(patient);
   const [editDoctor, setEditDoctor] = useState(doctor);
   const [editDate, setEditDate] = useState(date);

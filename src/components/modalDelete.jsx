@@ -1,4 +1,3 @@
-import '../components/modalDelete.scss';
 import {
   Dialog,
   DialogTitle,
@@ -8,10 +7,9 @@ import {
   Button
 } from '@material-ui/core';
 import axios from 'axios';
-
+import '../components/modalDelete.scss';
 
 const DeleteVisit = ({ openDelete, setOpenDelete, unuqieID, setAllVisits}) => {
-
   const handleDeleteAccept = (unuqieID) => {
     const token = localStorage.getItem('token');
     axios.delete(`http://localhost:8080/deleteVisit?_id=${unuqieID}`, {
