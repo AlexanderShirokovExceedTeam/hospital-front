@@ -9,32 +9,10 @@ import {
 } from '@material-ui/core';
 import './inputBlockStyles.scss';
 
-const InputBlock = ({ setAllVisits }) => {
-  const [inputName, setInputName] = useState('');
-  const [inputDoctor, setInputDoctor] = useState('');
-  const [inputDate, setInputDate] = useState('');
-  const [inputProblem, setInputProblem] = useState('');
+const InputBlock = ({ setAllVisits, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem, inputName, inputDoctor, inputDate, inputProblem }) => {
+
   const [isHidden, setIsHidden] = useState(false);
   const history = useHistory();
-
-  const doctors = [
-    {
-      value: '',
-    },
-    {
-      value: 'Jonathan Sins',
-    },
-    {
-      value: 'Gregory House',
-
-    },
-    {
-      value: 'Emmett Brown',
-    },
-    {
-      value: 'Rick Sanchez',
-    },
-  ];
 
   const inputNameHandler = (e) => {
     setInputName(e.target.value);
@@ -90,16 +68,16 @@ const InputBlock = ({ setAllVisits }) => {
         <form className="input-form" id="input-form">
             <Box className="input-name">
               <TextField
-                  className="nameField"
-                  name="inputName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="inputName"
-                  label="Name"
-                  type="text"
-                  onChange={(e) => inputNameHandler(e)}
-                />  
+                className="nameField"
+                name="inputName"
+                variant="outlined"
+                required
+                fullWidth
+                id="inputName"
+                label="Name"
+                type="text"
+                onChange={(e) => inputNameHandler(e)}
+              />
             </Box>
             <Box className='input-doctor'>
               <TextField
