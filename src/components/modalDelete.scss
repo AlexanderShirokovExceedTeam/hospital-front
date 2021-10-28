@@ -1,0 +1,13 @@
+.dialog-del>
+.MuiDialog-container>
+.MuiPaper-root {
+  width: 35%;
+
+  @media only screen and (max-width: 768.98px) {
+    width: 50%;
+  }
+  
+  @media only screen and (max-width: 320.98px) {
+    width: 80%;
+  }
+}
