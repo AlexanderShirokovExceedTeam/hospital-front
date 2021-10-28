@@ -73,10 +73,30 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="center" className="visits-column patient-field">{row.patient}</TableCell>
-                <TableCell align="center" className="visits-column doctor-field">{row.doctor}</TableCell>
-                <TableCell align="center" className="visits-column date-field">{row.date.substring(0, 10)}</TableCell>
-                <TableCell align="center" className="visits-column">{row.problem}</TableCell>
+                <TableCell
+                  align="center"
+                  className="visits-column patient-field"
+                >
+                  {row.patient}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  className="visits-column doctor-field"
+                >
+                  {row.doctor}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  className="visits-column date-field"
+                >
+                  {row.date.substring(0, 10)}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  className="visits-column"
+                >
+                  {row.problem}
+                </TableCell>
                 <TableCell
                   component="th"
                   scope="row"

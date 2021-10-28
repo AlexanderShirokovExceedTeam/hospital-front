@@ -1,8 +1,12 @@
-.dialog-edit > .MuiDialog-container > .MuiPaper-root{
+.dialog-edit>
+.MuiDialog-container>
+.MuiPaper-root{
   width: 40%;
+
   @media only screen and (max-width: 768.98px) {
     width: 60%;
   }
+  
   @media only screen and (max-width: 320.98px) {
     width: 95%;
     margin: 8px;
