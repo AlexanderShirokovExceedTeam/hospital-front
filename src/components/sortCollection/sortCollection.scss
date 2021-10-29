@@ -18,3 +18,23 @@
   background-color: white;
   border-radius: 4px;
 }
+
+.date-filter-from,
+.date-filter-to {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-filter-from-field,
+.date-filter-to-field {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.date-filter-from-text.MuiTypography-root,
+.date-filter-to-text.MuiTypography-root {
+  margin-right: 4%;
+}

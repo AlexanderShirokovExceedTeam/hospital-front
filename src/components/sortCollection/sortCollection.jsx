@@ -1,14 +1,20 @@
 import { useState } from 'react';
+import axios from 'axios';
 import {
   TextField,
   Box,
   Container,
+  Button,
+  Typography
 } from '@material-ui/core';
 import './sortCollection.scss';
 
 const SortCollection = ({ allVisits, setAllVisits }) => {
   const [inputDirection, setInputDirection] = useState('Ascending');
   const [inputProperty, setInputProperty] = useState('');
+  const [filterIsOpen, setFilterIsOpen] = useState(false);
+  const [filterDateFrom, setFilterDateFrom] = useState('');
+  const [filterDateTo, setFilterDateTo] = useState('');
   const property = [
     {
       label: '',
@@ -54,6 +60,38 @@ const SortCollection = ({ allVisits, setAllVisits }) => {
     const direction = e.target.value;
     setInputDirection(direction);
     sortCollection(inputProperty, direction);
+  }
+
+  const clickOpenFilterHandler = () => {
+    setFilterIsOpen(true);
+  }
+
+  const clickFilterHandler = () => {
+    if (filterDateFrom && filterDateTo) {
+      setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) >= filterDateFrom && allVisits.date.substring(0, 10) <= filterDateTo)]);
+    }
+    if (!filterDateFrom) {
+      setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) <= filterDateTo)]);
+    }
+    if (!filterDateTo) {
+      setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) >= filterDateFrom)]);
+    }
+  }
+
+  const clickAbortFilterHandler = () => {
+    const token = localStorage.getItem('token');
+    axios.get('http://localhost:8080/allVisits', {
+      headers : {
+        token: `${token}`,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    }).then(res => {
+      setAllVisits(res.data.data);
+      setFilterIsOpen(false);
+      setFilterDateFrom('');
+      setFilterDateTo('');
+    });
   }
 
   return (
@@ -111,6 +149,76 @@ const SortCollection = ({ allVisits, setAllVisits }) => {
               }
             </TextField> 
           </Box>
+        }
+        {
+          filterIsOpen &&
+          <>
+            <Box className="date-filter-from">
+              <Typography className="date-filter-from-text">
+                From:
+              </Typography>
+              <TextField
+                className="date-filter-from-field"
+                name="filterDateFrom"
+                onChange={(e) => setFilterDateFrom(e.target.value)}
+                id="filterDateFrom"
+                type="date"
+                variant="outlined"
+                value={filterDateFrom}
+                autoComplete='off'
+                required
+                fullWidth
+              />
+            </Box>
+            <Box className="date-filter-to">
+            <Typography className="date-filter-to-text">
+                To:
+              </Typography>
+              <TextField
+                className="date-filter-to-field"
+                name="filterDateTo"
+                onChange={(e) => {
+                  setFilterDateTo(e.target.value)
+                  console.log(filterDateTo)
+                  console.log(typeof(filterDateTo))
+                }}
+                id="filterDateTo"
+                type="date"
+                variant="outlined"
+                value={filterDateTo}
+                autoComplete='off'
+                required
+                fullWidth
+              />
+            </Box>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={() => clickFilterHandler()}
+            >
+              Filter
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={() => clickAbortFilterHandler()}
+            >
+              Abort filter
+            </Button>
+          </>
+        }
+        {
+          !filterIsOpen &&
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={() => clickOpenFilterHandler()}
+          >
+            Open filter
+          </Button>
         }
       </Container>
     </>
