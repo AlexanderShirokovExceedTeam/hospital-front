@@ -12,6 +12,7 @@ import './App.scss';
 
 const App = () => {
   const [allVisits, setAllVisits] = useState([]);
+  const [sortedVisits, setSortedVisits] = useState([]);
   const [inputName, setInputName] = useState('');
   const [inputDoctor, setInputDoctor] = useState('');
   const [inputDate, setInputDate] = useState('');
@@ -74,15 +75,21 @@ const App = () => {
             setInputDate={setInputDate}
             inputProblem={inputProblem}
             setInputProblem={setInputProblem}
+            sortedVisits={sortedVisits}
+            setSortedVisits={setSortedVisits}            
           />
           <SortCollection
             allVisits={allVisits}
             setAllVisits={setAllVisits}
+            sortedVisits={sortedVisits}
+            setSortedVisits={setSortedVisits}
           />
           <ContentBlock
             allVisits={allVisits}
             setAllVisits={setAllVisits}
             doctors={doctors}
+            sortedVisits={sortedVisits}
+            setSortedVisits={setSortedVisits}
           />
         </Route>
         <Redirect from='/' to='/registration'/>

@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import './sortCollection.scss';
 
-const SortCollection = ({ allVisits, setAllVisits }) => {
+const SortCollection = ({ allVisits, setAllVisits, sortedVisits, setSortedVisits }) => {
   const [inputDirection, setInputDirection] = useState('Ascending');
   const [inputProperty, setInputProperty] = useState('');
   const [filterIsOpen, setFilterIsOpen] = useState(false);
@@ -67,14 +67,20 @@ const SortCollection = ({ allVisits, setAllVisits }) => {
   }
 
   const clickFilterHandler = () => {
+    console.log('sortedVisits before', sortedVisits);
+    setSortedVisits([...allVisits]);
+    console.log('sortedVisits after', sortedVisits);
     if (filterDateFrom && filterDateTo) {
       setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) >= filterDateFrom && allVisits.date.substring(0, 10) <= filterDateTo)]);
+      // setSortedVisits([...sortedVisits.filter(sortedVisits => sortedVisits.date.substring(0, 10) >= filterDateFrom && sortedVisits.date.substring(0, 10) <= filterDateTo)]);
     }
     if (!filterDateFrom) {
       setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) <= filterDateTo)]);
+      // setSortedVisits([...sortedVisits.filter(sortedVisits => sortedVisits.date.substring(0, 10) <= filterDateTo)]);
     }
     if (!filterDateTo) {
       setAllVisits([...allVisits.filter(allVisits => allVisits.date.substring(0, 10) >= filterDateFrom)]);
+      // setSortedVisits([...sortedVisits.filter(sortedVisits => sortedVisits.date.substring(0, 10) >= filterDateFrom)]);
     }
   }
 
@@ -177,11 +183,7 @@ const SortCollection = ({ allVisits, setAllVisits }) => {
               <TextField
                 className="date-filter-to-field"
                 name="filterDateTo"
-                onChange={(e) => {
-                  setFilterDateTo(e.target.value)
-                  console.log(filterDateTo)
-                  console.log(typeof(filterDateTo))
-                }}
+                onChange={(e) => setFilterDateTo(e.target.value)}
                 id="filterDateTo"
                 type="date"
                 variant="outlined"

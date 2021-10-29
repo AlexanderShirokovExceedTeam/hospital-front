@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import './inputBlockStyles.scss';
 
-const InputBlock = ({ setAllVisits, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem, inputName, inputDoctor, inputDate, inputProblem }) => {
+const InputBlock = ({ setAllVisits, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem, inputName, inputDoctor, inputDate, inputProblem, sortedVisits, setSortedVisits }) => {
   const [isHidden, setIsHidden] = useState(false);
   const history = useHistory();
 
@@ -48,6 +48,7 @@ const InputBlock = ({ setAllVisits, doctors, setInputName, setInputDoctor, setIn
         setInputDate('');
         setInputProblem('');
         setAllVisits(res.data.data);
+        setSortedVisits(res.data.data);
       }
     }).catch(err => {
       if (err.response.status === 403) {
