@@ -1,16 +1,16 @@
-import './App.scss';
+import { useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import SignUp from './components/registration-page';
 import LogIn from './components/authorization-page';
 import HospitalLogo from './components/images/hospital-logo';
 import Header from './components/header';
-import { Route, Switch, Redirect } from 'react-router-dom';
 import InputBlock from './components/inputBlock';
 import ContentBlock from './components/contentBlock';
-import { useState } from 'react';
+import SortCollection from './components/sortCollection/sortCollection';
+import './App.scss';
 
 const App = () => {
-
   const [allVisits, setAllVisits] = useState([]);
   const [inputName, setInputName] = useState('');
   const [inputDoctor, setInputDoctor] = useState('');
@@ -26,7 +26,6 @@ const App = () => {
     },
     {
       value: 'Gregory House',
-
     },
     {
       value: 'Emmett Brown',
@@ -75,6 +74,10 @@ const App = () => {
             setInputDate={setInputDate}
             inputProblem={inputProblem}
             setInputProblem={setInputProblem}
+          />
+          <SortCollection
+            allVisits={allVisits}
+            setAllVisits={setAllVisits}
           />
           <ContentBlock
             allVisits={allVisits}

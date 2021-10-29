@@ -1,4 +1,3 @@
-import './contentBlock.scss'
 import { useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -15,6 +14,7 @@ import { Edit, Delete } from '@material-ui/icons';
 import { useState } from 'react';
 import EditVisit from './modalEdit';
 import DeleteVisit from './modalDelete';
+import './contentBlock.scss';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
   const[openEdit, setOpenEdit] = useState(false);
@@ -47,7 +47,7 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
     setEditedVisit(allVisits[index]);
     setOpenEdit(true);
   }
-  
+
   const handleDeleteVisit = (id) => {
     setUniqueID(id);
     setOpenDelete(true);
