@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import '../components/modalEdit.scss';
 
-const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem }) => {
+const EditVisit = ({ openEdit, setOpenEdit, setAllVisits, editedVisit, doctors }) => {
   const { _id, patient, doctor, date, problem } = editedVisit;
   const [editPatient, setEditPatient] = useState(patient);
   const [editDoctor, setEditDoctor] = useState(doctor);

@@ -1,35 +1,34 @@
 import { useState } from 'react';
 import {
-  // Button,
   TextField,
   Box,
   Container,
 } from '@material-ui/core';
-import './sortCollection.scss'
+import './sortCollection.scss';
 
-const SortCollection = () => {
-  const [inputDirection, setInputDirection] = useState('');
+const SortCollection = ({ allVisits, setAllVisits }) => {
+  const [inputDirection, setInputDirection] = useState('Ascending');
   const [inputProperty, setInputProperty] = useState('');
-  // const [directionIsVisible, setDirectionIsVisible] = useState(false);
   const property = [
     {
+      label: '',
       value: '',
     },
     {
-      value: 'Patient',
+      label: 'Patient',
+      value: 'patient',
     },
     {
-      value: 'Doctor',
+      label: 'Doctor',
+      value: 'doctor',
     },
     {
-      value: 'Date',
+      label: 'Date',
+      value: 'date'
     },
   ];
 
   const direction = [
-    {
-      value: '',
-    },
     {
       value: 'Ascending',
     },
@@ -38,18 +37,23 @@ const SortCollection = () => {
     },
   ];
 
-  const sortCollection = (srcCollect, sortByProperty, sortDirection) => {
-    sortDirection ? 
-    srcCollect.sort((a, b) => a.sortByProperty > b.sortByProperty ? 1 : -1) : //  from smallest to largest
-    srcCollect.sort((a, b) => a.sortByProperty < b.sortByProperty ? 1 : -1)   //  from largest to smallest
+  const sortCollection = (sortByProperty, sortDirection) => {
+    allVisits = allVisits.sort((a, b) => a[sortByProperty] > b[sortByProperty] ? 1 : -1);
+    if (sortDirection === 'Descending') allVisits = allVisits.reverse();
+    setAllVisits([...allVisits]);
   }
 
   const inputPropertyHandler = (e) => {
-    setInputProperty(e.target.value);
+    const value = e.target.value || '_id';
+    setInputProperty(value);
+    setInputDirection('Ascending');
+    sortCollection(value, inputDirection);
   }
 
   const inputDirectionHandler = (e) => {
-    setInputDirection(e.target.value);
+    const direction = e.target.value;
+    setInputDirection(direction);
+    sortCollection(inputProperty, direction);
   }
 
   return (
@@ -60,13 +64,11 @@ const SortCollection = () => {
             className="propertyField"
             name="inputProperty"
             variant="outlined"
-            required
             fullWidth
             id="inputProperty"
             value={inputProperty}
             select
             label="Sort by property"
-            type="text"
             onChange={(e) => inputPropertyHandler(e)}
             SelectProps={{
               native: true,
@@ -75,14 +77,14 @@ const SortCollection = () => {
             {
               property.map((option) => (
                 <option key={option.value} value={option.value}>
-                  {option.value}
+                  {option.label}
                 </option>
               ))
             }
           </TextField>
         </Box>
         {
-          inputProperty &&
+          inputProperty && inputProperty !== '_id' &&
           <Box className="input-direction">          
             <TextField
               className="directionField"

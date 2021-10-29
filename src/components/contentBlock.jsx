@@ -17,7 +17,6 @@ import DeleteVisit from './modalDelete';
 import './contentBlock.scss';
 
 const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
-  const[sortedVisits, setSortedVisits] = useState(allVisits);
   const[openEdit, setOpenEdit] = useState(false);
   const[openDelete, setOpenDelete] = useState(false);
   const[unuqieID, setUniqueID] = useState(null);
@@ -41,12 +40,11 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
       }
     }).then(res => {
       setAllVisits(res.data.data);
-      setSortedVisits(res.data.data);
     });
   }, [setAllVisits]);
 
   const handleEditVisit = (index) => {
-    setEditedVisit(sortedVisits[index]);
+    setEditedVisit(allVisits[index]);
     setOpenEdit(true);
   }
 
@@ -70,7 +68,7 @@ const ContentBlock = ({ allVisits, setAllVisits, doctors }) => {
         </TableHead>
         <TableBody>
           {
-            sortedVisits.map((row, index) => (
+            allVisits.map((row, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

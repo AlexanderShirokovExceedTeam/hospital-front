@@ -11,7 +11,6 @@ import SortCollection from './components/sortCollection/sortCollection';
 import './App.scss';
 
 const App = () => {
-
   const [allVisits, setAllVisits] = useState([]);
   const [inputName, setInputName] = useState('');
   const [inputDoctor, setInputDoctor] = useState('');
@@ -76,7 +75,10 @@ const App = () => {
             inputProblem={inputProblem}
             setInputProblem={setInputProblem}
           />
-          <SortCollection />
+          <SortCollection
+            allVisits={allVisits}
+            setAllVisits={setAllVisits}
+          />
           <ContentBlock
             allVisits={allVisits}
             setAllVisits={setAllVisits}

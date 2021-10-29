@@ -10,7 +10,6 @@ import {
 import './inputBlockStyles.scss';
 
 const InputBlock = ({ setAllVisits, doctors, setInputName, setInputDoctor, setInputDate, setInputProblem, inputName, inputDoctor, inputDate, inputProblem }) => {
-
   const [isHidden, setIsHidden] = useState(false);
   const history = useHistory();
 
